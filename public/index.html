@@ -123,9 +123,10 @@
     							"cache-control": "no-cache",
   							},
   							"processData": false,
-  							//"data": "{\n    \"description\": \"mentor\",\n    \"firstname\": \"trevor\",\n    \"lastname\": \"snodgrass\",\n    \"email\": \"test@sohacks.com\",\n    \"grade\": 14,\n    \"age\": 20\n}"
   							"data": text
 						}
+
+						console.log('settings', settings);
 
 						$.ajax(settings).done(function (response) {
   							console.log(response);
