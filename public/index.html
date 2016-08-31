@@ -244,11 +244,12 @@
     				var sectionArray = ["basic-info", "stage2", "stage3", "legal-info"];
     				var formArray = ["frm1", "frm2", "frm3", "frm4"];	
     				var i;
-    				var data;
+    				var data = {};
+    				var result = {};
     				for (i = 0; i < 4; i++) {
   	  					var x = document.getElementById(formArray[i]);
   	  					console.log(x);
-    					data += ConvertFormToJSON(x);
+  	  					$.extend(result, data, ConvertFormToJSON(x));
     				}
 
 					postajax(data);
