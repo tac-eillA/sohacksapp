@@ -106,11 +106,17 @@
     			function myFunction() {
 
   	  					var x = document.getElementById("frm1");
-    					var text = "";
-    					var i;
-    					for (i = 0; i < x.length ;i++) {
-    						text += x.elements[i].value + ",";
-    					}
+    					var text = {};
+    					//var i;
+    					text.name = document.getElementById("name");
+    					text.email = document.getElementById("email");
+    					text.type = document.getElementById("department");
+    					text.org = document.getElementById("message");
+    					text.human = document.getElementById("human");
+    					// for (i = 0; i < x.length ;i++) {
+    					// 	text += x.elements[i].value + ",";
+    					// }
+
     					console.log(text + " \n is being sent!");
 
     					var settings = {
@@ -119,7 +125,7 @@
   							"url": "http://app.sohacks.com/appdata",
   							"method": "POST",
   							"headers": {
-    							"content-type": "application/text",
+    							"content-type": "application/json",
     							"cache-control": "no-cache",
   							},
   							"processData": false,
