@@ -113,8 +113,7 @@
     						text += x.elements[i].value + ",";
     					}
     					console.log(text + " \n is being sent!");
-    					var object = $("frm1").serializeJSON();
-        				var stringObject = $.parseJSON(object);
+
     					var settings = {
   							"async": true,
   							"crossDomain": true,
@@ -123,11 +122,10 @@
   							"headers": {
     							"content-type": "application/json",
     							"cache-control": "no-cache",
-    							"postman-token": "b55f330e-4fb7-e89b-71ca-f2c43d77e118"
   							},
   							"processData": false,
   							//"data": "{\n    \"description\": \"mentor\",\n    \"firstname\": \"trevor\",\n    \"lastname\": \"snodgrass\",\n    \"email\": \"test@sohacks.com\",\n    \"grade\": 14,\n    \"age\": 20\n}"
-  							"data": JSON.stringify(stringObject)
+  							"data": text
 						}
 
 						$.ajax(settings).done(function (response) {
