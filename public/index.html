@@ -103,7 +103,10 @@
 
 			<script>
 
-				function ConvertFormToJSON(form){
+				
+    		// You can also require other files to run in this process
+    			function myFunction() {
+    				function ConvertFormToJSON(form){
     				var array = jQuery(form).serializeArray();
     				var json = {};
     
@@ -112,9 +115,7 @@
     				});
     
     				return json;
-				}
-    		// You can also require other files to run in this process
-    			function myFunction() {
+					}	
 
   	  					var x = document.getElementById("frm1");
   	  					console.log(x);
