@@ -111,6 +111,8 @@
     					text += x.elements[i].value + ",";
     				}
     				console.log(text + " \n is being sent!");
+    				var object = $("frm1").serializeJSON();
+        			var stringObject = $.parseJSON(object);
     				var settings = {
   						"async": true,
   						"crossDomain": true,
@@ -123,7 +125,7 @@
   						},
   						"processData": false,
   						//"data": "{\n    \"description\": \"mentor\",\n    \"firstname\": \"trevor\",\n    \"lastname\": \"snodgrass\",\n    \"email\": \"test@sohacks.com\",\n    \"grade\": 14,\n    \"age\": 20\n}"
-  						"data": text
+  						"data": JSON.stringify(stringObject)
 						}
 
 						$.ajax(settings).done(function (response) {
