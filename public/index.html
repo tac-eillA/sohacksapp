@@ -58,6 +58,12 @@
 								<input type="email" name="email" id="email" placeholder="Email" />
 							</div>
 							<div class="field">
+								<input type="phonenum" name="phonenum" id="phonenum" placeholder="Phone Number" />
+							</div>
+							<div class="field">
+								<textarea name="address" id="address" placeholder="What is your address?" rows="4"></textarea>
+							</div>
+							<div class="field">
 								<div class="select-wrapper">
 									<select name="department" id="department">
 										<option value="#">Register as...</option>
@@ -71,11 +77,11 @@
 								<textarea name="message" id="message" placeholder="What school do you go to/company are you with?" rows="4"></textarea>
 							</div>
 							<div class="field">
-								<input type="checkbox" id="human" name="human" /><label for="human">I'm a human</label>
+								<input type="teachemail" name="teachemail" id="teachemail" placeholder="Reference (like a teacher's email)" />
 							</div>
 							
 							<ul class="actions">
-								<li><a href="#" class="button" onclick="updateForm(0)" name="getting-started" id="getting-started">Get Started</a></li>
+								<li><a href="#" class="button" onclick="updateForm(0)" name="getting-started" id="getting-started">Next!</a></li>
 							</ul>
 						</form>
 						</div>
@@ -90,30 +96,21 @@
 						<h2>A little more about you...</h2>
 						<form method="post" id="frm2">
 							<div class="field">
-								<input type="text" name="name" id="name" placeholder="Name" />
+								<input type="text" name="emergencyname" id="emergencyname" placeholder="Emergency Contact Name" />
 							</div>
 							<div class="field">
-								<input type="email" name="email" id="email" placeholder="Email" />
+								<input type="email" name="emergencyemail" id="emergencyemail" placeholder="Emergency Contact Email" />
 							</div>
 							<div class="field">
-								<div class="select-wrapper">
-									<select name="department" id="department">
-										<option value="#">Register as...</option>
-										<option value="student">Attendee</option>
-										<option value="mentor">Mentor</option>
-										<option value="volunteer">Volunteer</option>
-									</select>
-								</div>
+								<input type="phonenum" name="emergencyphonenum" id="emergencyphonenum" placeholder="Emergency Contact Phone Number" />
 							</div>
+						
 							<div class="field">
-								<textarea name="message" id="message" placeholder="What school do you go to/company are you with?" rows="4"></textarea>
-							</div>
-							<div class="field">
-								<input type="checkbox" id="human" name="human" /><label for="human">I'm a human</label>
+								<textarea name="allergy" id="allergy" placeholder="Do you have any allergies or dietary restrictions?" rows="4"></textarea>
 							</div>
 							
 							<ul class="actions">
-								<li><a href="#" class="button" onclick="updateForm(1)" name="getting-started" id="getting-started">Get Started</a></li>
+								<li><a href="#" class="button" onclick="updateForm(1)" name="getting-started" id="getting-started">Almost there!</a></li>
 							</ul>
 						</form>
 						</div>
@@ -127,31 +124,43 @@
 						<div id="stage3">
 						<h2>This way we can give you free stuff</h2>
 						<form method="post" id="frm3">
-							<div class="field">
-								<input type="text" name="name" id="name" placeholder="Name" />
-							</div>
-							<div class="field">
-								<input type="email" name="email" id="email" placeholder="Email" />
-							</div>
+							
 							<div class="field">
 								<div class="select-wrapper">
-									<select name="department" id="department">
-										<option value="#">Register as...</option>
-										<option value="student">Attendee</option>
-										<option value="mentor">Mentor</option>
-										<option value="volunteer">Volunteer</option>
+									<select name="codeskill" id="codeskill">
+										<option value="#">Coding Skill:</option>
+										<option value="new">Never Coded Before</option>
+										<option value="intermediate">I know a bit of code</option>
+										<option value="advanced">Advanced Developer</option>
 									</select>
 								</div>
 							</div>
+
 							<div class="field">
-								<textarea name="message" id="message" placeholder="What school do you go to/company are you with?" rows="4"></textarea>
+								<div class="select-wrapper">
+									<select name="shirtsize" id="shirtsize">
+										<option value="#">T-Shirt size</option>
+										<option value="small">Small</option>
+										<option value="medium">Medium</option>
+										<option value="large">Large</option>
+										<option value="xlarge">Xtra Large</option>
+									</select>
+								</div>
 							</div>
+
 							<div class="field">
-								<input type="checkbox" id="human" name="human" /><label for="human">I'm a human</label>
+								<div class="select-wrapper">
+									<select name="firsttime" id="firsttime">
+										<option value="#">Is this your first SoHacks?</option>
+										<option value="yes">Yes</option>
+										<option value="no">No</option>
+									</select>
+								</div>
 							</div>
 							
+							
 							<ul class="actions">
-								<li><a href="#" class="button" onclick="updateForm(2)" name="getting-started" id="getting-started">Get Started</a></li>
+								<li><a href="#" class="button" onclick="updateForm(2)" name="getting-started" id="getting-started">One last thing!</a></li>
 							</ul>
 						</form>
 						</div>
@@ -164,7 +173,7 @@
 						-->
 						<div id="legal-info">
 						<h2>Legal Stuff</h2>
-						<form method="post" id="frm4">
+						<!-- <form method="post" id="frm4">
 							<div class="field">
 								<input type="text" name="name" id="name" placeholder="Name" />
 							</div>
@@ -187,9 +196,9 @@
 							<div class="field">
 								<input type="checkbox" id="human" name="human" /><label for="human">I'm a human</label>
 							</div>
-							
+							 -->
 							<ul class="actions">
-								<li><a href="#" class="button" onclick="updateUser()" name="getting-started" id="getting-started">Get Started</a></li>
+								<li><a href="#" class="button" onclick="updateUser()" name="getting-started" id="getting-started">Done!</a></li>
 							</ul>
 						</form>
 						</div>
@@ -280,6 +289,8 @@
 						$.ajax(settings).done(function (response) {
   							console.log(response);
 						});
+
+						window.setTimeout(function(){ window.location = "/thankyou"; },1500);
 				}
 			</script>
 
