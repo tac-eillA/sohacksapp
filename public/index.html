@@ -42,6 +42,12 @@
 						</header>
 						
 						<hr />
+
+						<!-- 
+						**************************************
+						BASIC INFO FORM STAGE 1 OF APPLICATION
+						**************************************
+						-->
 						<div id="basic-info">
 						<h2>Basic Info</h2>
 						<form method="post" id="frm1">
@@ -69,10 +75,126 @@
 							</div>
 							
 							<ul class="actions">
-								<li><a href="#" class="button" onclick="myFunction()" name="getting-started" id="getting-started">Get Started</a></li>
+								<li><a href="#" class="button" onclick="updateForm(0)" name="getting-started" id="getting-started">Get Started</a></li>
 							</ul>
 						</form>
 						</div>
+
+
+						<!-- 
+						*******************************************
+						EMERGENCY INFO FORM STAGE 2 OF APPLICATION
+						*******************************************
+						-->
+						<div id="stage2">
+						<h2>A little more about you...</h2>
+						<form method="post" id="frm2">
+							<div class="field">
+								<input type="text" name="name" id="name" placeholder="Name" />
+							</div>
+							<div class="field">
+								<input type="email" name="email" id="email" placeholder="Email" />
+							</div>
+							<div class="field">
+								<div class="select-wrapper">
+									<select name="department" id="department">
+										<option value="#">Register as...</option>
+										<option value="student">Attendee</option>
+										<option value="mentor">Mentor</option>
+										<option value="volunteer">Volunteer</option>
+									</select>
+								</div>
+							</div>
+							<div class="field">
+								<textarea name="message" id="message" placeholder="What school do you go to/company are you with?" rows="4"></textarea>
+							</div>
+							<div class="field">
+								<input type="checkbox" id="human" name="human" /><label for="human">I'm a human</label>
+							</div>
+							
+							<ul class="actions">
+								<li><a href="#" class="button" onclick="updateForm(1)" name="getting-started" id="getting-started">Get Started</a></li>
+							</ul>
+						</form>
+						</div>
+
+
+						<!-- 
+						**********************************************************
+						SO WE CAN GIVE THEM FREE STUFF FORM STAGE 3 OF APPLICATION
+						**********************************************************
+						-->
+						<div id="stage3">
+						<h2>This way we can give you free stuff</h2>
+						<form method="post" id="frm3">
+							<div class="field">
+								<input type="text" name="name" id="name" placeholder="Name" />
+							</div>
+							<div class="field">
+								<input type="email" name="email" id="email" placeholder="Email" />
+							</div>
+							<div class="field">
+								<div class="select-wrapper">
+									<select name="department" id="department">
+										<option value="#">Register as...</option>
+										<option value="student">Attendee</option>
+										<option value="mentor">Mentor</option>
+										<option value="volunteer">Volunteer</option>
+									</select>
+								</div>
+							</div>
+							<div class="field">
+								<textarea name="message" id="message" placeholder="What school do you go to/company are you with?" rows="4"></textarea>
+							</div>
+							<div class="field">
+								<input type="checkbox" id="human" name="human" /><label for="human">I'm a human</label>
+							</div>
+							
+							<ul class="actions">
+								<li><a href="#" class="button" onclick="updateForm(2)" name="getting-started" id="getting-started">Get Started</a></li>
+							</ul>
+						</form>
+						</div>
+
+
+						<!-- 
+						**************************************
+						LEGAL WORK FORM STAGE 4 OF APPLICATION
+						**************************************
+						-->
+						<div id="legal-info">
+						<h2>Legal Stuff</h2>
+						<form method="post" id="frm4">
+							<div class="field">
+								<input type="text" name="name" id="name" placeholder="Name" />
+							</div>
+							<div class="field">
+								<input type="email" name="email" id="email" placeholder="Email" />
+							</div>
+							<div class="field">
+								<div class="select-wrapper">
+									<select name="department" id="department">
+										<option value="#">Register as...</option>
+										<option value="student">Attendee</option>
+										<option value="mentor">Mentor</option>
+										<option value="volunteer">Volunteer</option>
+									</select>
+								</div>
+							</div>
+							<div class="field">
+								<textarea name="message" id="message" placeholder="What school do you go to/company are you with?" rows="4"></textarea>
+							</div>
+							<div class="field">
+								<input type="checkbox" id="human" name="human" /><label for="human">I'm a human</label>
+							</div>
+							
+							<ul class="actions">
+								<li><a href="#" class="button" onclick="updateUser()" name="getting-started" id="getting-started">Get Started</a></li>
+							</ul>
+						</form>
+						</div>
+
+
 						<hr />
 						
 
@@ -104,28 +226,32 @@
 			</script>
 
 			<script>
+				function updateForm(formnum) {
+					var sectionArray = ["basic-info", "stage2", "stage3", "legal-info"];
+					$(sectionArray[formnum]).hide('slow');
+					$(sectionArray[formnum + 1]).show('slow');
+				}
+			</script>
 
-				
-    		// You can also require other files to run in this process
-    			function myFunction() {
-    				var ConvertFormToJSON = function(form){
-    				var array = jQuery(form).serializeArray();
-    				var json = {};
-    				var sectionArray = ["basic-info", ""];
-    
-    				jQuery.each(array, function() {
-        				json[this.name] = this.value || '';
-    				});
-    
-    				return json;
-					}	
-
-  	  					var x = document.getElementById("frm1");
+			<script>	
+    			function updateUser() {
+    				var sectionArray = ["basic-info", "stage2", "stage3", "legal-info"];
+    				var formArray = ["frm1", "frm2", "frm3", "frm4"];	
+    				var i;
+    				var data;
+    				for (i = 0; i < 4; i++) {
+  	  					var x = document.getElementById(formArray[i]);
   	  					console.log(x);
-    					var data = ConvertFormToJSON(x);
+    					data += ConvertFormToJSON(x);
+    				}
 
+					postajax(data);
+    			}
+			</script>
 
-    					console.log(data + " \n is being sent!");
+			<script>
+				function postajax(data) {
+					console.log(data + " \n is being sent!");
 
     					var settings = {
   							"async": true,
@@ -138,7 +264,7 @@
     							"postman-token": "9b8dd9cb-5b36-40a6-f2a9-e73b1e4dd4a5"
 							},
   							"processData": false,
-  							// "data": "{\n    \"description\": \"mentor\",\n    \"firstname\": \"trevor\",\n    \"lastname\": \"snodgrass\",\n    \"email\": \"test@sohacks.com\",\n    \"grade\": 14,\n    \"age\": 20\n}"
+
   							"data": JSON.stringify(data)
 						}
 
@@ -147,8 +273,19 @@
 						$.ajax(settings).done(function (response) {
   							console.log(response);
 						});
+				}
+			</script>
 
-						$("#basic-info").hide('slow');
+			<script>
+				function ConvertFormToJSON(form){
+    				var array = jQuery(form).serializeArray();
+    				var json = {};
+
+    
+    				jQuery.each(array, function() {
+        				json[this.name] = this.value || '';
+    				});
+    				return json;
     			}
 			</script>
 	</body>
