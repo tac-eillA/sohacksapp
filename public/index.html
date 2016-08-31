@@ -42,6 +42,7 @@
 						</header>
 						
 						<hr />
+						<div id="basic-info">
 						<h2>Basic Info</h2>
 						<form method="post" id="frm1">
 							<div class="field">
@@ -71,6 +72,7 @@
 								<li><a href="#" class="button" onclick="myFunction()" name="getting-started" id="getting-started">Get Started</a></li>
 							</ul>
 						</form>
+						</div>
 						<hr />
 						
 
@@ -109,6 +111,7 @@
     				var ConvertFormToJSON = function(form){
     				var array = jQuery(form).serializeArray();
     				var json = {};
+    				var sectionArray = ["basic-info", ""];
     
     				jQuery.each(array, function() {
         				json[this.name] = this.value || '';
@@ -145,8 +148,7 @@
   							console.log(response);
 						});
 
-						alert("Thank you for submitting this form!");
-						window.setTimeout(function(){ window.location = "http://www.sohacks.com"; },1000);
+						$("#basic-info").hide('slow');
     			}
 			</script>
 	</body>
