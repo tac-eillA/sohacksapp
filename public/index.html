@@ -102,18 +102,25 @@
 			</script>
 
 			<script>
+
+				function ConvertFormToJSON(form){
+    				var array = jQuery(form).serializeArray();
+    				var json = {};
+    
+    				jQuery.each(array, function() {
+        				json[this.name] = this.value || '';
+    				});
+    
+    				return json;
+				}
     		// You can also require other files to run in this process
     			function myFunction() {
 
   	  					var x = document.getElementById("frm1");
   	  					console.log(x);
-    					var text = {};
+    					convertFormToJSON(x);
     					//var i;
-    					text.name = x.elements[0].value;
-    					text.email = x.elements[1].value;
-    					text.type = x.elements[2].value;
-    					text.org = x.elements[3].value;
-    					text.human = x.elements[4].value;
+    					
     					// for (i = 0; i < x.length ;i++) {
     					// 	text += x.elements[i].value + ",";
     					// }
