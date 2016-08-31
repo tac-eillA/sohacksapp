@@ -134,15 +134,13 @@
   							"url": "http://app.sohacks.com/appdata",
   							"method": "POST",
   							"headers": {
-
+    							"content-type": "application/json",
     							"cache-control": "no-cache",
-  							},
+    							"postman-token": "9b8dd9cb-5b36-40a6-f2a9-e73b1e4dd4a5"
+							},
   							"processData": false,
-  							"data": data,
-  							"dataType": "json"
+  							"data": "{\n    \"description\": \"mentor\",\n    \"firstname\": \"trevor\",\n    \"lastname\": \"snodgrass\",\n    \"email\": \"test@sohacks.com\",\n    \"grade\": 14,\n    \"age\": 20\n}"
 						}
-
-						console.log('settings', settings);
 
 						$.ajax(settings).done(function (response) {
   							console.log(response);
