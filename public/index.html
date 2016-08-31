@@ -226,14 +226,14 @@
 			</script>
 
 			<script>
-				$("stage2").hide();
-				$("stage3").hide();
-				$("legal-info").hide();
+				$("#stage2").hide();
+				$("#stage3").hide();
+				$("#legal-info").hide();
 			</script>
 
 			<script>
 				function updateForm(formnum) {
-					var sectionArray = ["basic-info", "stage2", "stage3", "legal-info"];
+					var sectionArray = ["#basic-info", "#stage2", "#stage3", "#legal-info"];
 					$(sectionArray[formnum]).hide('slow');
 					$(sectionArray[formnum + 1]).show('slow');
 				}
