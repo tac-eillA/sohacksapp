@@ -112,7 +112,7 @@ app.post('/appdata', function (req, res) {
 	
 	body.id = infoNextID;
 	info.push(body);
-
+	console.log(res);
 	res.json(body);
 	infoNextID++;
 });
