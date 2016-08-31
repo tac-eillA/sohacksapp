@@ -111,7 +111,7 @@
     					text += x.elements[i].value + ",";
     				}
     				console.log(text + " \n is being sent!");
-    				var object = $("frm1").serializeJSON();
+    				var object = jquery("frm1").serializeJSON();
         			var stringObject = $.parseJSON(object);
     				var settings = {
   						"async": true,
