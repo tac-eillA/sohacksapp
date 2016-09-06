@@ -306,11 +306,7 @@
 			<script>	
     			function updateUser() {
 
-					if(document.getElementById('department') === 'mentor' || document.getElementById('department') === 'volunteer') {
-    					$('#legal-info').hide('slow');
-    					$('#mentor-info').show('slow');
-    				} else {
-    					var sectionArray = ["basic-info", "stage2", "stage3", "legal-info"];
+    				var sectionArray = ["basic-info", "stage2", "stage3", "legal-info"];
     					var formArray = ["frm1", "frm2", "frm3", "frm4"];	
     					var i;
     					var data = {};
@@ -320,6 +316,12 @@
   	  						console.log(JSON.stringify(ConvertFormToJSON(x)));
   	  						$.extend(result, data, ConvertFormToJSON(x));
     					}
+
+					if(result.department === 'mentor' || result.department === 'volunteer') {
+    					$('#legal-info').hide('slow');
+    					$('#mentor-info').show('slow');
+    				} else {
+    					
 						postajax(result);
 					}
 
@@ -342,7 +344,7 @@
   	  					$.extend(result, data, ConvertFormToJSON(x));
     				}
 
-  	  				postajaxmentor(result);
+  	  				postajax(result);
 				}
 			</script>
 
@@ -375,34 +377,6 @@
 				}
 			</script>
 
-			<script>
-				function postajaxmentor(data) {
-					console.log(data + " \n is being sent!");
-
-    					var settings = {
-  							"async": true,
-  							"crossDomain": true,
-  							"url": "http://app.sohacks.com/appdata",
-  							"method": "POST",
-  							"headers": {
-    							"content-type": "application/json",
-    							"cache-control": "no-cache",
-    							"postman-token": "9b8dd9cb-5b36-40a6-f2a9-e73b1e4dd4a5"
-							},
-  							"processData": false,
-
-  							"data": JSON.stringify(data)
-						}
-
-						console.log(JSON.stringify(data));
-
-						$.ajax(settings).done(function (response) {
-  							console.log(response);
-						});
-
-						window.setTimeout(function(){ window.location = "/thankyou.html"; },1500);
-				}
-			</script>
 
 			<script>
 				function ConvertFormToJSON(form){
