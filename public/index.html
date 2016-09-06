@@ -319,7 +319,7 @@
   	  					$.extend(result, data, ConvertFormToJSON(x));
     				}
 
-    				if(result.description === 'mentor' || result.description === 'volunteer') {
+    				if(JSON.stringify(result.department) === 'mentor' || JSON.stringify(result.department) === 'volunteer') {
     					$('#legal-info').hide('slow');
     					$('#mentor-info').show('slow');
     					result = updateUserMentor(result);
