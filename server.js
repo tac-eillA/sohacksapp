@@ -15,6 +15,7 @@
  * 	postman
  * ********************************************************/
 
+
   /*********************************************************
   * 				Setup
   * ******************************************************/
@@ -39,7 +40,19 @@ var middleware = require('./middleware.js');
 
 app.use(middleware.logger);
 app.use(bodyParser.json());
-app.use(express.static(__dirname + '/public'));
+require('letsencrypt-express').create({
+
+  server: 'https://acme-v01.api.letsencrypt.org/director'
+
+, email: 'trevorsemail96@gmail.com'
+
+, agreeTos: true
+
+, approveDomains: [ 'app.sohacks.com' ]
+
+, app: require('express')().use(express.static(__dirname + '/public')) 
+
+});
 
  /*********************************************************
   * 			JSON TO CSV Conversion Setup
@@ -169,6 +182,8 @@ app.put('/appdata/id/:id', function (res, req) {
 	console.log('You are on localhost:' + PORT);
 	});
  });
+
+
 
 
 
