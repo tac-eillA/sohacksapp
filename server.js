@@ -163,7 +163,7 @@ app.put('/appdata/id/:id', function (res, req) {
   * 				Setup port
   * ******************************************************/
 
-  db.sequelize.sync().then(function {
+  db.sequelize.sync().then(function () {
   	app.listen(PORT, function() {
 	console.log('Express server started');
 	console.log('You are on localhost:' + PORT);
