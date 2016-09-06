@@ -114,7 +114,7 @@ app.post('/appdata', function (req, res) {
 	var body = req.body;
 	
 	body.id = infoNextID;
-	//info.push(body);
+	info.push(body);
 	db.info.create(body).then(function() {
         console.log('Added item to database!');
         res.status(200).send();
@@ -145,17 +145,7 @@ app.delete('/appdata/id/:id', function (req, res) {
 
 // PUT request /appdata/id/:id
 app.put('/appdata/id/:id', function (res, req) {
-	var body = _.pick(req.body, 'description', 'grade');
-	var validAttributes = {};
 
-	if(body.hasOwnProperty('description')) {
-		validAttributes.description = body.description;
-	} else if (body.hasOwnProperty('description')) {
-		// Things went wrong
-		return res.status(400).send();
-	} else {
-		// Never provided attribute, no problem
-	}
 
 });
 
@@ -172,7 +162,7 @@ app.put('/appdata/id/:id', function (res, req) {
  });
 
   
- 
+
 
 
 
