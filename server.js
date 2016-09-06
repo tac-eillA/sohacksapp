@@ -101,7 +101,8 @@ app.get('/appdata/email/:email', function (req, res) {
 
 // GET request to export file as a CSV
 app.get('/appdata/export/csv', function (req, res) {
-	converter.json2csv(info, json2csvCallback);
+	var c = converter.json2csv(info, json2csvCallback);
+	res.send(c);
 	res.status(200).send();
 });
 
