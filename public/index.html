@@ -315,7 +315,9 @@
     					var result = {};
     					for (i = 0; i < 4; i++) {
   	  						var x = document.getElementById(formArray[i]);
-  	  						console.log(JSON.stringify(ConvertFormToJSON(x)));
+  	  						if (ValidateForm(x)) {
+  	  							return;
+  	  						}
   	  						$.extend(result, data, ConvertFormToJSON(x));
     					}
 
@@ -341,7 +343,9 @@
     				var result = {};
     				for (i = 0; i < 5; i++) {
   	  					var x = document.getElementById(formArray[i]);
-  	  					console.log(JSON.stringify(ConvertFormToJSON(x)));
+  	  					if (ValidateForm5(x)) {
+  	  							return;
+  	  					}
   	  					$.extend(result, data, ConvertFormToJSON(x));
     				}
 
@@ -386,9 +390,64 @@
 
     
     				jQuery.each(array, function() {
-        				json[this.name] = this.value || '';
+        					json[this.name] = this.value || '';
+        						
     				});
     				return json;
+    			}
+			</script>
+
+			<script>
+				function ValidateForm5(form){
+    				var array = jQuery(form).serializeArray();
+    				var json = {};
+    				var counter = 0;
+
+    
+    				jQuery.each(array, function() {
+    					if (this.value === null || this.value === '') {
+
+
+    						counter++
+    						
+    					}
+    				});
+    					if(counter > 0) {
+    						alert('You did not fill in all required forms! Please fill them out and resubmit');
+							$("#legal-info").hide('slow');
+							$("#basic-info").show('slow');
+    						return true;
+    					}
+    					else {
+    						return false;
+        				}
+    			}
+			</script>
+			<script>
+				function ValidateForm(form){
+    				var array = jQuery(form).serializeArray();
+    				var json = {};
+    				var counter = 0;
+
+    
+    				jQuery.each(array, function() {
+    					if (this.value === null || this.value === '') {
+
+
+    						counter++
+    						
+    					}
+    				});
+    					if(counter > 0) {
+    						alert('You did not fill in all required forms! Please fill them out and resubmit');
+    						$("#legal-info").hide('slow');
+							$("#mentor-info").hide('slow');
+							$("#basic-info").show('slow');
+    						return true;
+    					}
+    					else {
+    						return false;
+        				}
     			}
 			</script>
 	</body>
