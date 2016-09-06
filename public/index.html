@@ -243,11 +243,12 @@
 										<option value="mentor">Walk around and mentor</option>
 										<option value="workshop">Teach a workshop</option>
 										<option value="booth">Work a language specific help booth</option>
+										<option value="volunteer">General Volunteer</option>
 									</select>
 								</div>
 							</div>
 							<div class="field">
-								<textarea name="skills" id="skills" placeholder="List the progamming languages you have experience with" rows="4"></textarea>
+								<textarea name="skills" id="skills" placeholder="List the progamming languages you have experience with (if none dont worry!)" rows="4"></textarea>
 							</div>
 							 
 							<ul class="actions">
@@ -304,23 +305,27 @@
 
 			<script>	
     			function updateUser() {
-    				var sectionArray = ["basic-info", "stage2", "stage3", "legal-info"];
-    				var formArray = ["frm1", "frm2", "frm3", "frm4"];	
-    				var i;
-    				var data = {};
-    				var result = {};
-    				for (i = 0; i < 4; i++) {
-  	  					var x = document.getElementById(formArray[i]);
-  	  					console.log(JSON.stringify(ConvertFormToJSON(x)));
-  	  					$.extend(result, data, ConvertFormToJSON(x));
-    				}
 
-    				if(result.department === 'mentor' || result.department === 'volunteer') {
+					if(document.getElementById('department') === 'mentor' || document.getElementById('department') === 'volunteer') {
     					$('#legal-info').hide('slow');
     					$('#mentor-info').show('slow');
     				} else {
+    					var sectionArray = ["basic-info", "stage2", "stage3", "legal-info"];
+    					var formArray = ["frm1", "frm2", "frm3", "frm4"];	
+    					var i;
+    					var data = {};
+    					var result = {};
+    					for (i = 0; i < 4; i++) {
+  	  						var x = document.getElementById(formArray[i]);
+  	  						console.log(JSON.stringify(ConvertFormToJSON(x)));
+  	  						$.extend(result, data, ConvertFormToJSON(x));
+    					}
 						postajax(result);
 					}
+
+    				
+
+    				
     			}
 			</script>
 
