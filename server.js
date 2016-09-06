@@ -34,6 +34,8 @@ var infoNextID = 1;
 
 var middleware = require('./middleware.js');
 
+var csvtopost = '';
+
  /*********************************************************
   * 				INITALISATION
   * ******************************************************/
@@ -49,6 +51,8 @@ app.use(express.static(__dirname + '/public'));
 var json2csvCallback = function (err, csv) {
     if (err) throw err;
     console.log(csv);
+    csvtopost = csv;
+
 };
 
  /*********************************************************
@@ -101,8 +105,8 @@ app.get('/appdata/email/:email', function (req, res) {
 
 // GET request to export file as a CSV
 app.get('/appdata/export/csv', function (req, res) {
-	var c = converter.json2csv(info, json2csvCallback);
-	res.send(c);
+	converter.json2csv(info, json2csvCallback);
+	res.send(csvtopost);
 	res.status(200).send();
 });
 
