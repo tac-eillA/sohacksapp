@@ -249,13 +249,9 @@
 							<div class="field">
 								<textarea name="skills" id="skills" placeholder="List the progamming languages you have experience with" rows="4"></textarea>
 							</div>
-							
-							<div class="field">
-								<input type="checkbox" id="human" name="human" /><label for="human">I'm a human</label>
-							</div>
 							 
 							<ul class="actions">
-								<li><a href="#" class="button" onclick="updateUserMentor()" name="getting-started" id="getting-started">Done!</a></li>
+								<li><a href="#" class="button" onclick="updateUserMentor()" name="getting-started" id="getting-started">Finished!</a></li>
 							</ul>
 						</form>
 						</div>
@@ -319,11 +315,9 @@
   	  					$.extend(result, data, ConvertFormToJSON(x));
     				}
 
-    				if(JSON.stringify(result.department) === 'mentor' || JSON.stringify(result.department) === 'volunteer') {
+    				if(result.department === 'mentor' || result.department === 'volunteer') {
     					$('#legal-info').hide('slow');
     					$('#mentor-info').show('slow');
-    					result = updateUserMentor(result);
-    					postajaxmentor(result);
     				} else {
 						postajax(result);
 					}
@@ -331,13 +325,19 @@
 			</script>
 
 			<script>
-				function updateUserMentor (result) {
-					var data = {};
-					var x = document.getElementById('frm5');
-  	  				console.log(JSON.stringify(ConvertFormToJSON(x)));
-  	  				$.extend(data, result, ConvertFormToJSON(x));
+				function updateUserMentor () {
+					var sectionArray = ["basic-info", "stage2", "stage3", "legal-info", "mentor-info"];
+    				var formArray = ["frm1", "frm2", "frm3", "frm4", "frm5"];	
+    				var i;
+    				var data = {};
+    				var result = {};
+    				for (i = 0; i < 5; i++) {
+  	  					var x = document.getElementById(formArray[i]);
+  	  					console.log(JSON.stringify(ConvertFormToJSON(x)));
+  	  					$.extend(result, data, ConvertFormToJSON(x));
+    				}
 
-  	  				return data;
+  	  				postajaxmentor(data);
 				}
 			</script>
 
@@ -395,7 +395,7 @@
   							console.log(response);
 						});
 
-						window.setTimeout(function(){ window.location = "/thankyoumentor.html"; },1500);
+						//window.setTimeout(function(){ window.location = "/thankyoumentor.html"; },1500);
 				}
 			</script>
 
