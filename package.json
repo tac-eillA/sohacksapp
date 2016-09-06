@@ -12,6 +12,8 @@
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "json-2-csv": "^2.0.22",
+    "sequelize": "^3.24.1",
+    "sqlite3": "^3.1.4",
     "underscore": "^1.8.3"
   }
 }

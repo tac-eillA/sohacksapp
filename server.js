@@ -24,6 +24,8 @@ var bodyParser = require('body-parser');
 var _ = require('underscore');
 var converter = require('json-2-csv');
 
+var db = require('./db.js');
+
 var app = express();
 var PORT = process.env.PORT || 3000;
 var info = [];
@@ -111,20 +113,16 @@ app.post('/appdata', function (req, res) {
 	var body = req.body;
 	
 	body.id = infoNextID;
-	info.push(body);
+	//info.push(body);
+	db.info.create(body).then(function() {
+        console.log('Added item to database!');
+        res.status(200).send();
+    });
 	res.json(body);
 	infoNextID++;
 });
 
-// POST request /appdata/append/:email
-app.post('/appdata/append/', function (req, res) {
-	var body = req.body;
-	
-	body.id = infoNextID;
-	info.push(body);
-	res.json(body);
-	infoNextID++;
-});
+
 
  /*********************************************************
   * 				DELETE request
@@ -165,7 +163,16 @@ app.put('/appdata/id/:id', function (res, req) {
   * 				Setup port
   * ******************************************************/
 
-app.listen(PORT, function() {
+  db.sequelize.sync().then(function {
+  	app.listen(PORT, function() {
 	console.log('Express server started');
 	console.log('You are on localhost:' + PORT);
-});
+	});
+ });
+
+
+
+
+
+
+

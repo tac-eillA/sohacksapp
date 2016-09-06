@@ -58,7 +58,23 @@
 								<input type="email" name="email" id="email" placeholder="Email" />
 							</div>
 							<div class="field">
-								<input type="text" name="phonenum" id="phonenum" placeholder="Phone Number" />
+								<input type="tel" name="phonenum" id="phonenum" placeholder="Phone Number" />
+							</div>
+							<div class="field">
+								<p>Birthday: <input type="date" name="bday" id="bday" placeholder="Birthday" /> </p>
+							</div>
+							<div class="field">
+								<input type="text" name="age" id="age" placeholder="Age" />
+							</div>
+							<div class="field">
+								<div class="select-wrapper">
+									<select name="gender" id="gender">
+										<option value="#">Gender</option>
+										<option value="male">Male</option>
+										<option value="female">Female</option>
+										<option value="other">Other</option>
+									</select>
+								</div>
 							</div>
 							<div class="field">
 								<textarea name="address" id="address" placeholder="What is your address?" rows="4"></textarea>
@@ -74,7 +90,13 @@
 								</div>
 							</div>
 							<div class="field">
-								<textarea name="message" id="message" placeholder="What school do you go to/company are you with?" rows="4"></textarea>
+								<textarea name="hearofus" id="hearofus" placeholder="Briefly tell us how you heard of SoHacks" rows="4"></textarea>
+							</div>
+							<div class="field">
+								<textarea name="affilitation" id="affilitation" placeholder="What school do you go to/company are you with?" rows="4"></textarea>
+							</div>
+							<div class="field">
+								<input type="password" name="password" id="password" placeholder="Create a SoHacks Password" />
 							</div>
 							<div class="field">
 								<input type="email" name="teachemail" id="teachemail" placeholder="Reference (like a teacher's email)" />
@@ -204,6 +226,40 @@
 						</form>
 						</div>
 
+						<!-- 
+						**************************************
+						MENTOR/VOLUTEER FORM STAGE 5 OF APPLICATION
+						**************************************
+						-->
+
+						<div id="mentor-info">
+						<h2>We need a little more from you.</h2>
+						<form method="post" id="frm5">
+							
+							<div class="field">
+								<div class="select-wrapper">
+									<select name="helpwith" id="helpwith">
+										<option value="#">What do you want to do?</option>
+										<option value="mentor">Walk around and mentor</option>
+										<option value="workshop">Teach a workshop</option>
+										<option value="booth">Work a language specific help booth</option>
+									</select>
+								</div>
+							</div>
+							<div class="field">
+								<textarea name="skills" id="skills" placeholder="List the progamming languages you have experience with" rows="4"></textarea>
+							</div>
+							
+							<div class="field">
+								<input type="checkbox" id="human" name="human" /><label for="human">I'm a human</label>
+							</div>
+							 
+							<ul class="actions">
+								<li><a href="#" class="button" onclick="updateUserMentor()" name="getting-started" id="getting-started">Done!</a></li>
+							</ul>
+						</form>
+						</div>
+
 
 						<hr />
 						
@@ -239,6 +295,7 @@
 				$("#stage2").hide();
 				$("#stage3").hide();
 				$("#legal-info").hide();
+				$("#mentor-info").hide();
 			</script>
 
 			<script>
@@ -262,8 +319,26 @@
   	  					$.extend(result, data, ConvertFormToJSON(x));
     				}
 
-					postajax(result);
+    				if(result.description === 'mentor' || result.description === 'volunteer') {
+    					$('#legal-info').hide('slow');
+    					$('#mentor-info').show('slow');
+    					result = updateUserMentor(result);
+    					postajaxmentor(result);
+    				} else {
+						postajax(result);
+					}
     			}
+			</script>
+
+			<script>
+				function updateUserMentor (result) {
+					var data = {};
+					var x = document.getElementById('frm5');
+  	  				console.log(JSON.stringify(ConvertFormToJSON(x)));
+  	  				$.extend(data, result, ConvertFormToJSON(x));
+
+  	  				return data;
+				}
 			</script>
 
 			<script>
@@ -292,6 +367,35 @@
 						});
 
 						window.setTimeout(function(){ window.location = "/thankyou.html"; },1500);
+				}
+			</script>
+
+			<script>
+				function postajaxmentor(data) {
+					console.log(data + " \n is being sent!");
+
+    					var settings = {
+  							"async": true,
+  							"crossDomain": true,
+  							"url": "http://app.sohacks.com/appdata",
+  							"method": "POST",
+  							"headers": {
+    							"content-type": "application/json",
+    							"cache-control": "no-cache",
+    							"postman-token": "9b8dd9cb-5b36-40a6-f2a9-e73b1e4dd4a5"
+							},
+  							"processData": false,
+
+  							"data": JSON.stringify(data)
+						}
+
+						console.log(JSON.stringify(data));
+
+						$.ajax(settings).done(function (response) {
+  							console.log(response);
+						});
+
+						window.setTimeout(function(){ window.location = "/thankyoumentor.html"; },1500);
 				}
 			</script>
 
