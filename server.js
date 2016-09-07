@@ -109,7 +109,7 @@ app.get('/appdata/email/:email', function (req, res) {
 app.get('/appdata/verify/token/:token', function (req, res) {
 	var infoToken = req.params.token
 	//updated to use underscore
-	var matchedToken = _.where(info, {email: infoEmail});
+	var matchedToken = _.where(info, {token: infoToken});
 
 	if (matchedToken) {
 		res.json(matchedToken);
