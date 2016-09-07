@@ -99,6 +99,27 @@ app.get('/appdata/email/:email', function (req, res) {
 
 	if (matchedEmail) {
 		res.json(matchedEmail);
+
+	} else {
+		res.status(404).send();
+	}
+});
+
+// GET request /appdata/verify/token/:token
+app.get('/appdata/verify/token/:token', function (req, res) {
+	var infoToken = req.params.token
+	//updated to use underscore
+	var matchedToken = _.where(info, {email: infoEmail});
+
+	if (matchedToken) {
+		res.json(matchedToken);
+		var index = _.findIndex(info, {token: infoToken});
+		if(info[index].verify === false) {
+			info[index].verify = true;
+			console.log('User: ' + info[index].name + 'has been verified!');
+			res.json(info[index]);
+		}
+
 	} else {
 		res.status(404).send();
 	}
@@ -123,6 +144,7 @@ app.post('/appdata/post', function (req, res) {
   		if (err) throw err;
   		console.log(`${buf.length} bytes of random data: ${buf.toString('hex')}`);
   		body.token = buf.toString('hex');
+  		body.verify = false;
 	});
 	
 	body.id = infoNextID;
