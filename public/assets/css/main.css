@@ -696,6 +696,13 @@
 
 /* Main */
 
+	#qrcode {
+		width:160px;
+  		height:160px;
+  		margin-top:15px;
+  	}
+
+
 	#main {
 		position: relative;
 		max-width: 100%;

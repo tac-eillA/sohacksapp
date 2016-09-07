@@ -62,7 +62,18 @@ var json2csvCallback = function (err, csv) {
 
 // GET request /appdata
 app.get('/appdata/get/userdata', function (req, res) {
-	res.json(info);
+	var infoID = parseInt(req.params.id, 10);
+	//updated to use underscore
+	db.info.findById(infoID).then(function(info) {
+		if (!!info) {
+			res.json(info.toJSON());
+		} else {
+			console.log('No entry found');
+			res.status(404).send();
+		}
+	}, function (e) {
+		res.status(500).send();
+	});
 });
 
 // GET request /appdata/:id
@@ -82,10 +93,26 @@ app.get('/appdata/id/:id', function (req, res) {
 
 });
 
-// GET request /appdata/lname/:lname
-app.get('/appdata/lname/:lname', function (req, res) {
-	var infoLastName = req.params.lname
+// GET request /appdata/pnum/:pnum
+app.get('/appdata/pnum/:pnum', function (req, res) {
+	var infoNumber = req.params.pnum
+
 	//updated to use underscore
+
+	db.info.findAll({
+  		where: {
+    		phonenum: infoNumber
+  		}
+	}).then(function(info) {
+		if (!!info) {
+			res.json(info);
+		} else {
+			console.log('No entry found');
+			res.status(404).send();
+		}
+	}, function (e) {
+		res.status(500).send();
+	});
 	
 });
 
@@ -93,6 +120,21 @@ app.get('/appdata/lname/:lname', function (req, res) {
 app.get('/appdata/email/:email', function (req, res) {
 	var infoEmail = req.params.email
 	//updated to use underscore
+	db.info.findAll({
+  		where: {
+    		email: infoEmail
+  		}
+	}).then(function(info) {
+		if (!!info) {
+			res.json(info);
+		} else {
+			console.log('No entry found');
+			res.status(404).send();
+		}
+	}, function (e) {
+		res.status(500).send();
+	});
+	
 	
 });
 
@@ -100,24 +142,23 @@ app.get('/appdata/email/:email', function (req, res) {
 app.get('/appdata/verify/token/:token', function (req, res) {
 	var infoToken = req.params.token
 	//updated to use underscore
-	var matchedToken = _.where(info, {token: infoToken});
-
-	if (matchedToken) {
-		res.json(matchedToken);
-		var index = _.findIndex(info, {token: infoToken});
-		if(info[index].verify === false) {
-			info[index].verify = true;
-			console.log('User: ' + info[index].name + ' has been verified!');
-			setTimeout(function () {
-				res.json(info[index]);
-			}, 1500);
+	db.info.update({
+  		verify: true,
+	}, {
+  		where: {
+    		token: infoToken,
+    		verify: false,
+  		}
+	}).then(function(info) {
+		if (!!info) {
+			res.json(info);
 		} else {
-			console.log('User already verified');
+			console.log('No entry found or already verified');
+			res.status(404).send();
 		}
-
-	} else {
-		res.status(404).send();
-	}
+	}, function (e) {
+		res.status(500).send();
+	});
 });
 
 // GET request to export file as a CSV
@@ -149,13 +190,14 @@ app.post('/appdata/post', function (req, res) {
 	// post to database
 	setTimeout(function () {
 	db.info.create(body).then(function(info) {
-        res.status(200).json(info.toJSON());
+        res.status(200).json(body.token);
     }, function(e) {
     	res.status(400).json(e);
     });
 	}, 1000);
 
 	infoNextID++;
+
 });
 
 
@@ -167,10 +209,20 @@ app.post('/appdata/post', function (req, res) {
 // DELETE request /appdata/id/:id
 app.delete('/appdata/id/:id', function (req, res) {
 	var infoID = parseInt(req.params.id, 10);
-	var matchedID = _.findWhere(info, {id: infoID});
-
-	info = _.without(info, matchedID);
-	res.status(200).send();
+	db.info.destroy({
+  		where: {
+    		id: infoID
+  		}
+	}).then(function(info) {
+		if (!!info) {
+			res.json(info);
+		} else {
+			console.log('No entry found');
+			res.status(404).send();
+		}
+	}, function (e) {
+		res.status(500).send();
+	});
 
 });
 
@@ -178,18 +230,14 @@ app.delete('/appdata/id/:id', function (req, res) {
   * 				PUT request
   * ******************************************************/
 
-// PUT request /appdata/id/:id
-app.put('/appdata/id/:id', function (res, req) {
-
-
-});
+// no longer needed
 
 
  /*********************************************************
   * 				Setup port
   * ******************************************************/
 
-  db.sequelize.sync({force: true}).then(function () {
+  db.sequelize.sync().then(function () {
   	app.listen(PORT, function() {
 	console.log('Express server started');
 	console.log('You are on localhost:' + PORT);

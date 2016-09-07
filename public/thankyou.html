@@ -12,6 +12,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<script src="https://use.fontawesome.com/91f06324d5.js"></script>
 		<script src="assets/js/jquery-3.1.0.min.js"></script>
+		<script src="assets/js/qrcode.js"></script>
 		<link rel="stylesheet" href="assets/css/main.css" />
 
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
@@ -38,8 +39,12 @@
 						<header>
 							<span class="avatar"><img src="images/avatar.png" alt="" /></span>
 							<h1>SoHacks 4</h1>
-							<p>Thanks for registering! We will be in touch soon!</p>
+							<p>Thanks for registering! Please screenshot or print this page! <br> It will the QR will be used to check you into the event!</p>
 						</header>
+
+						<hr />
+
+						<div id="qrcode"></div>
 						
 						<hr />
 						
@@ -68,6 +73,28 @@
 					window.addEventListener('load', function() { document.body.className = document.body.className.replace(/\bis-loading\b/, ''); });
 					document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? ' is-ie' : '');
 				}
+			</script>
+
+			<script>
+				function getUrlVars() {
+					var vars = {};
+					var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+						vars[key] = value;
+					});
+					return vars[];
+				}
+			</script>
+
+			<script>
+				var qrcode = new QRCode("qrcode");
+
+				function makeCode () {      
+    				var elText = 'http://app.sohacks.com/qrcheck/token/?token=' + getUrlVars()["token"];
+    
+    			qrcode.makeCode(elText.value);
+				}
+
+				makeCode();
 			</script>
 
 	</body>

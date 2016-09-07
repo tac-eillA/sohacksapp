@@ -353,6 +353,7 @@
 			<script>
 				function postajax(data) {
 					console.log(data + " \n is being sent!");
+					var resToken;
 
     					var settings = {
   							"async": true,
@@ -373,9 +374,10 @@
 
 						$.ajax(settings).done(function (response) {
   							console.log(response);
+  							resToken = response;
 						});
 
-						window.setTimeout(function(){ window.location = "/thankyou.html"; },1500);
+						window.setTimeout(function(){ window.location = "/thankyou.html?" + resToken; },1500);
 				}
 			</script>
 
@@ -432,10 +434,7 @@
     						counter++
     						
     					}
-    					if(this.name === 'email' || this.name === 'emergencyemail' && validateEmail(this.value)) {
-    						alert('You have entered an invalid email address into the input fields');
-    						counter++;
-    					}
+
     				});
     					if(counter > 0) {
     						alert('You did not fill in all required forms! Please fill them out and resubmit');
@@ -450,12 +449,7 @@
     			}
 			</script>
 
-			<script>
-				function validateEmail(email) {
-    				var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    				return re.test(email);
-				}
-			</script>
+
 	</body>
 
 
