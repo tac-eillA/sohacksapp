@@ -69,40 +69,31 @@ app.get('/appdata/get/userdata', function (req, res) {
 app.get('/appdata/id/:id', function (req, res) {
 	var infoID = parseInt(req.params.id, 10);
 	//updated to use underscore
-	var matchedID = _.findWhere(info, {id: infoID});
+	db.info.findById(infoID).then(function(info) {
+		if (!!info) {
+			res.json(info.toJSON());
+		} else {
+			console.log('No entry found');
+			res.status(404).send();
+		}
+	}, function (e) {
+		res.status(500).send();
+	});
 
-	if (matchedID) {
-		res.json(matchedID);
-	} else {
-		res.status(404).send();
-	}
 });
 
 // GET request /appdata/lname/:lname
 app.get('/appdata/lname/:lname', function (req, res) {
 	var infoLastName = req.params.lname
 	//updated to use underscore
-	var matchedLastName = _.where(info, {lastname: infoLastName});
-
-	if (matchedLastName) {
-		res.json(matchedLastName);
-	} else {
-		res.status(404).send();
-	}
+	
 });
 
 // GET request /appdata/email/:email
 app.get('/appdata/email/:email', function (req, res) {
 	var infoEmail = req.params.email
 	//updated to use underscore
-	var matchedEmail = _.where(info, {email: infoEmail});
-
-	if (matchedEmail) {
-		res.json(matchedEmail);
-
-	} else {
-		res.status(404).send();
-	}
+	
 });
 
 // GET request /appdata/verify/token/:token
@@ -116,8 +107,12 @@ app.get('/appdata/verify/token/:token', function (req, res) {
 		var index = _.findIndex(info, {token: infoToken});
 		if(info[index].verify === false) {
 			info[index].verify = true;
-			console.log('User: ' + info[index].name + 'has been verified!');
-			res.json(info[index]);
+			console.log('User: ' + info[index].name + ' has been verified!');
+			setTimeout(function () {
+				res.json(info[index]);
+			}, 1500);
+		} else {
+			console.log('User already verified');
 		}
 
 	} else {
@@ -142,18 +137,24 @@ app.post('/appdata/post', function (req, res) {
 
 	crypto.randomBytes(256, (err, buf) => {
   		if (err) throw err;
-  		console.log(`${buf.length} bytes of random data: ${buf.toString('hex')}`);
+  		//console.log(`${buf.length} bytes of random data: ${buf.toString('hex')}`);
   		body.token = buf.toString('hex');
   		body.verify = false;
 	});
 	
 	body.id = infoNextID;
-	info.push(body);
-	db.info.create(body).then(function() {
-        console.log('Added item to database!');
-        res.status(200).send();
+	
+
+
+	// post to database
+	setTimeout(function () {
+	db.info.create(body).then(function(info) {
+        res.status(200).json(info.toJSON());
+    }, function(e) {
+    	res.status(400).json(e);
     });
-	res.json(body);
+	}, 1000);
+
 	infoNextID++;
 });
 
@@ -188,7 +189,7 @@ app.put('/appdata/id/:id', function (res, req) {
   * 				Setup port
   * ******************************************************/
 
-  db.sequelize.sync().then(function () {
+  db.sequelize.sync({force: true}).then(function () {
   	app.listen(PORT, function() {
 	console.log('Express server started');
 	console.log('You are on localhost:' + PORT);
