@@ -24,6 +24,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var _ = require('underscore');
 var converter = require('json-2-csv');
+const crypto = require('crypto');
 
 var db = require('./db.js');
 
@@ -117,6 +118,12 @@ app.get('/appdata/export/csv', function (req, res) {
 // POST request /appdata
 app.post('/appdata', function (req, res) {
 	var body = req.body;
+
+	crypto.randomBytes(256, (err, buf) => {
+  		if (err) throw err;
+  		console.log(`${buf.length} bytes of random data: ${buf.toString('hex')}`);
+  		body.token = buf.toString('hex');
+	});
 	
 	body.id = infoNextID;
 	info.push(body);

@@ -38,8 +38,8 @@
 						<header>
 							<span class="avatar"><img src="images/avatar.png" alt="" /></span>
 							<h1>SoHacks 4</h1>
-							<p>Application to register</p>
-							<p>                                                         </p>
+							<h4>Application to register</h4>
+							<p>Please fill out all fields below with the required information</p>
 						</header>
 						
 						<hr />
@@ -117,13 +117,13 @@
 						<h2>A little more about you...</h2>
 						<form method="post" id="frm2">
 							<div class="field">
-								<input type="text" name="emergencyname" id="emergencyname" placeholder="Emergency Contact Name" required/>
+								<input type="text" name="emergencyname" id="emergencyname" placeholder="Parent/Guardian Contact Name" required/>
 							</div>
 							<div class="field">
-								<input type="email" name="emergencyemail" id="emergencyemail" placeholder="Emergency Contact Email" required/>
+								<input type="email" name="emergencyemail" id="emergencyemail" placeholder="Parent/Guardian Contact Email" required/>
 							</div>
 							<div class="field">
-								<input type="text" name="emergencyphonenum" id="emergencyphonenum" placeholder="Emergency Contact Phone Number" required/>
+								<input type="text" name="emergencyphonenum" id="emergencyphonenum" placeholder="Parent/Guardian Contact Phone Number" required/>
 							</div>
 						
 							<div class="field">
@@ -429,10 +429,12 @@
     
     				jQuery.each(array, function() {
     					if (this.value === null || this.value === '') {
-
-
     						counter++
     						
+    					}
+    					if(this.name === 'email' || this.name === 'emergencyemail' && validateEmail(this.value)) {
+    						alert('You have entered an invalid email address into the input fields');
+    						counter++;
     					}
     				});
     					if(counter > 0) {
@@ -446,6 +448,13 @@
     						return false;
         				}
     			}
+			</script>
+
+			<script>
+				function validateEmail(email) {
+    				var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    				return re.test(email);
+				}
 			</script>
 	</body>
 
