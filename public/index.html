@@ -353,7 +353,13 @@
 			<script>
 				function postajax(data) {
 					console.log(data + " \n is being sent!");
-					var resToken;
+					var text = "";
+    				var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    				for( var i=0; i < 5; i++ )
+        				text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+        			data.token2 = text;
 
     					var settings = {
   							"async": true,
@@ -377,7 +383,7 @@
   							resToken = response;
 						});
 
-						window.setTimeout(function(){ window.location = "/thankyou.html?" + resToken; },1500);
+						window.setTimeout(function(){ window.location = "/thankyou.html?token=" + data.token2; },1500);
 				}
 			</script>
 
