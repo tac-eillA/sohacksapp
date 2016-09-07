@@ -61,7 +61,7 @@ var json2csvCallback = function (err, csv) {
   * ******************************************************/
 
 // GET request /appdata
-app.get('/appdata', function (req, res) {
+app.get('/appdata/get/userdata', function (req, res) {
 	res.json(info);
 });
 
@@ -116,7 +116,7 @@ app.get('/appdata/export/csv', function (req, res) {
   * ******************************************************/
 
 // POST request /appdata
-app.post('/appdata', function (req, res) {
+app.post('/appdata/post', function (req, res) {
 	var body = req.body;
 
 	crypto.randomBytes(256, (err, buf) => {
