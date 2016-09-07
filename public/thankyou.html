@@ -82,14 +82,14 @@
 					var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
 						vars[key] = value;
 					});
-					return vars;
+					return vars[0];
 				}
 				var qrcode = new QRCode("qrcode");
 
 				function makeCode () {      
-    				var elText = 'http://app.sohacks.com/qrcheck/token/?token=' + getUrlVars()["token"];
+    				var elText = 'http://app.sohacks.com/qrcheck/token/?token=' + getUrlVars()z;
     
-    			qrcode.makeCode(elText.value);
+    			qrcode.makeCode(elText);
 				}
 
 				makeCode();
