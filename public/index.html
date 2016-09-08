@@ -356,10 +356,12 @@
 					var text = "";
     				var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-    				for( var i=0; i < 5; i++ )
+    				for( var i=0; i < 15; i++ )
         				text += possible.charAt(Math.floor(Math.random() * possible.length));
 
         			data.token2 = text;
+
+        			console.log('Data with token2: ' + data);
 
     					var settings = {
   							"async": true,

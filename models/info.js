@@ -20,6 +20,7 @@ module.exports = function (sequelize, DataTypes) {
     helpwith: {type: DataTypes.STRING},
     skills: {type: DataTypes.STRING},
     token: {type: DataTypes.STRING, allowNull: false, validate: {notEmpty: true}},
+    token2: {type: DataTypes.STRING, allowNull: false, validate: {notEmpty: true}},
     verify: {type: DataTypes.BOOLEAN, allowNull: false, validate: {notEmpty: true}}
   });
 };

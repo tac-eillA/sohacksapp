@@ -25,6 +25,7 @@ var Info = sequelize.define('info',   {
     helpwith: {type: Sequelize.STRING},
     skills: {type: Sequelize.STRING},
     token: {type: Sequelize.STRING, allowNull: false, validate: {notEmpty: true}},
+    token2: {type: Sequelize.STRING, allowNull: false, validate: {notEmpty: true}},
     verify: {type: Sequelize.BOOLEAN, allowNull: false, validate: {notEmpty: true}}
   });
 
