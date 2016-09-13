@@ -29,7 +29,7 @@ const crypto = require('crypto');
 var db = require('./db.js');
 
 var app = express();
-var PORT = process.env.PORT || 3000;
+var PORT = process.env.VAR || 3000;
 var info = [];
 var infoNextID = 1;
 
