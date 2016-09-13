@@ -2,7 +2,7 @@
   "name": "sohacksapp",
   "version": "1.0.0",
   "description": "Web Server to handle SoHacks 4 applications, searching of applicants, and exporting to google drive via a csv file",
-  "main": "server.js",
+  "main": "start.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
